@@ -13,6 +13,11 @@ def create_user(db: Session, user: schema.UserBase):
     return db_user
 
 
+def get_user(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(entity.User).offset(skip).limit(limit).all()
+
+
+
 
 # def get_list(db: Session):
 #     db.query(entity.User).all()

@@ -8,8 +8,6 @@ import repository as r
 
 app = FastAPI()
 
-
-# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -17,7 +15,12 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/users/")
+@app.post("/user_insert/")
 def read_users(user:schema.UserBase, db:Session = Depends(get_db)):
     r.create_user(db=db, user=user)
+    return user
+
+@app.get("/user_list/")
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    user = r.get_user(db, skip=skip, limit=limit)
     return user
