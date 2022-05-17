@@ -1,13 +1,15 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy import TIMESTAMP, Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+
 from database import Base
 
-from datetime import datetime
 
+# 해야할 일
+class Todo(Base):
+    __tablename__ = "todo"
 
-class User(Base):
-    __tablename__ = 'users'
-
-    seq = Column(Integer, primary_key=True)
-    user_name = Column(String, nullable=False)
-    age = Column(String, nullable=False)
+    seq = Column(Integer, primary_key=True, index=True, Auto_Increment=True)
+    comment = Column(String, Not_Null=True)
+    score = Column(Integer, Not_Null=True)
+    datetime = Column(TIMESTAMP, Not_Null=True, default='CURRENT_TIMESTAMP')
+    is_active = Column(Integer, default=False)
